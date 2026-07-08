@@ -1,0 +1,73 @@
+[package]
+name = "hadronrng"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+
+authors = ["Hadron Project"]
+description = "Cryptographically secure password and key generator written in Rust."
+license = "Apache-2.0"
+
+readme = "README.md"
+
+repository = "https://github.com/YOUR_USERNAME/HadronRNG"
+homepage = "https://github.com/YOUR_USERNAME/HadronRNG"
+documentation = "https://docs.rs/hadronrng"
+
+keywords = [
+    "random",
+    "password",
+    "security",
+    "cryptography",
+    "rng"
+]
+
+categories = [
+    "cryptography",
+    "authentication",
+    "algorithms"
+]
+
+exclude = [
+    ".github/",
+    "docs/",
+    "fuzz/",
+    "benches/",
+]
+
+[lib]
+name = "hadronrng"
+path = "src/lib.rs"
+
+[dependencies]
+getrandom = "0.3"
+zeroize = { version = "1", features = ["zeroize_derive"] }
+subtle = "2"
+
+[dev-dependencies]
+criterion = "0.7"
+
+[[bench]]
+name = "throughput"
+harness = false
+
+[profile.dev]
+opt-level = 1
+debug = true
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = "symbols"
+panic = "abort"
+
+[profile.bench]
+inherits = "release"
+
+[profile.test]
+opt-level = 1
+
+[features]
+default = []
+std = []
