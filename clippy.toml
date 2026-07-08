@@ -1,0 +1,40 @@
+# ==========================================
+# HadronRNG Clippy Configuration
+# ==========================================
+
+# Maximum number of function arguments.
+too-many-arguments-threshold = 7
+
+# Maximum number of boolean parameters.
+max-fn-params-bools = 2
+
+# Maximum allowed struct size before Clippy warns.
+max-struct-bools = 3
+
+# Cognitive complexity threshold.
+cognitive-complexity-threshold = 25
+
+# Type complexity threshold.
+type-complexity-threshold = 250
+
+# Maximum enum variant size difference.
+enum-variant-size-threshold = 200
+
+# Warn on large stack allocations.
+stack-size-threshold = 512000
+
+# Allow some single-character names commonly used in math/RNG.
+allowed-idents-below-min-chars = [
+    "i",
+    "j",
+    "k",
+    "x",
+    "y",
+    "z",
+    "n",
+]
+
+# Ignore interior mutable constants.
+ignore-interior-mutability = [
+    "std::sync::OnceLock",
+]
