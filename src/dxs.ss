@@ -3,3 +3,6 @@ utils.rs
 lib.rs
 config.rs
 error.rs
+entropy.rs
+key.rs
+password.rs
