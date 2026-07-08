@@ -1,0 +1,33 @@
+[package]
+name = "hadronrng-fuzz"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+libfuzzer-sys = "0.4"
+hadronrng = { path = ".." }
+
+
+[[bin]]
+name = "generator"
+path = "fuzz_targets/generator.rs"
+test = false
+doc = false
+bench = false
+
+
+[[bin]]
+name = "password"
+path = "fuzz_targets/password.rs"
+test = false
+doc = false
+bench = false
+
+
+[[bin]]
+name = "validator"
+path = "fuzz_targets/validator.rs"
+test = false
+doc = false
+bench = false
