@@ -6,3 +6,5 @@ error.rs
 entropy.rs
 key.rs
 password.rs
+hash.rs
+seed.rs
