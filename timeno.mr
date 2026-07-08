@@ -59,11 +59,3 @@ HadronRNG/
 │   ├── stress.rs
 │   ├── regression.rs
 │   └── api.rs
-|
-├── SECURITY.md
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── CODE_OF_CONDUCT.md
-├── rustfmt.toml
-├── clippy.toml
-└── README_RU.md
