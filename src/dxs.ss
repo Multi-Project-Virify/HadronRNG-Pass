@@ -8,3 +8,5 @@ key.rs
 password.rs
 hash.rs
 seed.rs
+rng.rs
+tests.rs
