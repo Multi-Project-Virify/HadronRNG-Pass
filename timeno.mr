@@ -1,0 +1,74 @@
+HadronRNG/
+│
+├── .github/
+│   └── workflows/
+│       ├── ci.yml
+│       ├── test.yml
+│       ├── fmt.yml
+│       ├── clippy.yml
+│       └── release.yml
+│
+├── benches/
+│   ├── password.rs
+│   ├── key.rs
+│   └── throughput.rs
+│
+├── docs/
+│   ├── architecture.md
+│   ├── api.md
+│   ├── security.md
+│   ├── examples.md
+│   └── faq.md
+│
+├── examples/
+│   ├── password.rs
+│   ├── key.rs
+│   ├── random_bytes.rs
+│   ├── custom_charset.rs
+│   └── batch.rs
+│
+├── fuzz/
+│   ├── Cargo.toml
+│   └── fuzz_targets/
+│       ├── password.rs
+│       ├── key.rs
+│       └── random.rs
+│
+├── src/
+│   │
+│   ├── entropy.rs          // получение энтропии
+│   ├── generator.rs        // ядро RNG
+│   ├── password.rs         // генератор паролей
+│   ├── key.rs              // генератор ключей
+│   ├── charset.rs          // наборы символов
+│   ├── policy.rs           // правила генерации
+│   ├── validator.rs        // проверка параметров
+│   ├── memory.rs           // очистка памяти
+│   ├── statistics.rs       // внутренние статистические проверки
+│   ├── config.rs
+│   ├── constants.rs
+│   ├── error.rs
+│   ├── utils.rs
+│   ├── prelude.rs
+│   └── lib.rs
+│
+├── tests/
+│   ├── password.rs
+│   ├── key.rs
+│   ├── entropy.rs
+│   ├── stress.rs
+│   ├── regression.rs
+│   └── api.rs
+│
+├── .gitignore
+├── Cargo.toml
+├── LICENSE
+├── NOTICE
+├── README.md
+├── SECURITY.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── rustfmt.toml
+├── clippy.toml
+└── README_RU.md
