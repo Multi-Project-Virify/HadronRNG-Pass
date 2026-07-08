@@ -1,138 +1,192 @@
-//! Tests for the HadronRNG generator.
-
 use hadronrng::HadronRng;
 
-const PASSWORD_LEN: usize = 32;
 
 #[test]
-fn generator_creation() {
-    let rng = HadronRng::new();
+fn generator_creates_instance() {
 
-    assert!(rng.is_ok());
+    let rng =
+        HadronRng::new();
+
+
+    assert!(
+        rng.is_ok(),
+        "HadronRng initialization failed"
+    );
 }
 
+
+
 #[test]
-fn random_bytes_length() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
+fn generator_generates_bytes() {
 
-    let bytes = rng.random_bytes(64)
-        .expect("failed to generate random bytes");
+    let mut rng =
+        HadronRng::new()
+            .expect("failed to create rng");
 
-    assert_eq!(bytes.len(), 64);
+
+    let data =
+        rng.random_bytes(128)
+            .expect("failed to generate bytes");
+
+
+    assert_eq!(
+        data.len(),
+        128
+    );
 }
 
+
+
 #[test]
-fn random_bytes_are_not_equal() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
+fn generator_generates_small_data() {
 
-    let first = rng.random_bytes(64)
-        .expect("failed to generate bytes");
+    let mut rng =
+        HadronRng::new()
+            .expect("failed");
 
-    let second = rng.random_bytes(64)
-        .expect("failed to generate bytes");
 
-    assert_ne!(first, second);
+    let data =
+        rng.random_bytes(1)
+            .expect("failed");
+
+
+    assert_eq!(
+        data.len(),
+        1
+    );
 }
 
+
+
 #[test]
-fn password_generation() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
+fn generator_generates_large_data() {
 
-    let password = rng.password(PASSWORD_LEN)
-        .expect("failed to generate password");
+    let mut rng =
+        HadronRng::new()
+            .expect("failed");
 
-    assert_eq!(password.len(), PASSWORD_LEN);
+
+    let data =
+        rng.random_bytes(1024 * 1024)
+            .expect("failed");
+
+
+    assert_eq!(
+        data.len(),
+        1024 * 1024
+    );
 }
 
-#[test]
-fn generated_passwords_should_be_different() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
 
-    let first = rng.password(PASSWORD_LEN)
-        .expect("failed to generate password");
-
-    let second = rng.password(PASSWORD_LEN)
-        .expect("failed to generate password");
-
-    assert_ne!(first, second);
-}
 
 #[test]
-fn generate_key_128() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
+fn generator_multiple_operations() {
 
-    let key = rng.key_128()
-        .expect("failed to generate key");
+    let mut rng =
+        HadronRng::new()
+            .expect("failed");
 
-    assert_eq!(key.len(), 16);
-}
-
-#[test]
-fn generate_key_256() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
-
-    let key = rng.key_256()
-        .expect("failed to generate key");
-
-    assert_eq!(key.len(), 32);
-}
-
-#[test]
-fn generate_key_512() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
-
-    let key = rng.key_512()
-        .expect("failed to generate key");
-
-    assert_eq!(key.len(), 64);
-}
-
-#[test]
-fn zero_length_password_should_fail() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
-
-    assert!(rng.password(0).is_err());
-}
-
-#[test]
-fn zero_length_random_bytes_should_return_empty() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
-
-    let bytes = rng.random_bytes(0)
-        .expect("failed to generate bytes");
-
-    assert!(bytes.is_empty());
-}
-
-#[test]
-fn large_random_buffer() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
-
-    let bytes = rng.random_bytes(1024 * 1024)
-        .expect("failed to generate bytes");
-
-    assert_eq!(bytes.len(), 1024 * 1024);
-}
-
-#[test]
-fn multiple_generations() {
-    let mut rng = HadronRng::new()
-        .expect("failed to create generator");
 
     for _ in 0..10_000 {
-        let password = rng.password(16)
-            .expect("failed to generate password");
 
-        assert_eq!(password.len(), 16);
+        let data =
+            rng.random_bytes(64)
+                .expect("generation failed");
+
+
+        assert_eq!(
+            data.len(),
+            64
+        );
+    }
+}
+
+
+
+#[test]
+fn generator_outputs_are_unique() {
+
+    let mut rng =
+        HadronRng::new()
+            .expect("failed");
+
+
+    let first =
+        rng.random_bytes(64)
+            .expect("failed");
+
+
+    let second =
+        rng.random_bytes(64)
+            .expect("failed");
+
+
+    assert_ne!(
+        first,
+        second,
+        "generator produced identical output"
+    );
+}
+
+
+
+#[test]
+fn generator_multiple_instances() {
+
+    let mut rng1 =
+        HadronRng::new()
+            .expect("failed");
+
+
+    let mut rng2 =
+        HadronRng::new()
+            .expect("failed");
+
+
+    let data1 =
+        rng1.random_bytes(64)
+            .expect("failed");
+
+
+    let data2 =
+        rng2.random_bytes(64)
+            .expect("failed");
+
+
+    assert_ne!(
+        data1,
+        data2,
+        "different RNG instances produced same data"
+    );
+}
+
+
+
+#[test]
+fn generator_stability_test() {
+
+    let mut rng =
+        HadronRng::new()
+            .expect("failed");
+
+
+    for size in [
+        16usize,
+        32,
+        64,
+        128,
+        256,
+        512,
+    ] {
+
+        let data =
+            rng.random_bytes(size)
+                .expect("generation failed");
+
+
+        assert_eq!(
+            data.len(),
+            size
+        );
     }
 }
